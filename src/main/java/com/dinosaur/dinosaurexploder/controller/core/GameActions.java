@@ -80,11 +80,23 @@ public class GameActions {
     runOnce(() -> getGameScene().removeUINode(flash), seconds(0.5));
 
     if (lives <= 0) {
+
       // Added extra line of code to sync the lives counter after death
       // All hearts disappear after death
       life.getComponent(LifeComponent.class).onUpdate(lives);
+
       System.out.println("Game Over!");
-      gameOver();
+
+      FXGL.spawn("explosion", player.getPosition());
+
+      player.removeFromWorld();
+
+      runOnce(
+          () -> {
+            gameOver();
+          },
+          seconds(1.5));
+
     } else {
       System.out.printf("%d lives remaining ! ", lives);
     }

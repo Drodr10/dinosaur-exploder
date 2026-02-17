@@ -6,8 +6,6 @@
 package com.dinosaur.dinosaurexploder.controller.core;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
-import static com.almasb.fxgl.dsl.FXGL.getAppCenter;
-import static com.almasb.fxgl.dsl.FXGL.getAppHeight;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.spawn;
 
 import com.almasb.fxgl.dsl.FXGL;
@@ -48,22 +46,30 @@ public class GameInitializer {
   /** Summary : To move the space shuttle in forward , backward , right , left directions */
   public void initInput() {
 
-    onKey(KeyCode.UP, () -> player.getComponent(PlayerComponent.class).moveUp());
-    onKey(KeyCode.DOWN, () -> player.getComponent(PlayerComponent.class).moveDown());
-    onKey(KeyCode.LEFT, () -> player.getComponent(PlayerComponent.class).moveLeft());
-    onKey(KeyCode.RIGHT, () -> player.getComponent(PlayerComponent.class).moveRight());
+    onKey(KeyCode.UP, () -> withPlayer(PlayerComponent::moveUp));
+    onKey(KeyCode.DOWN, () -> withPlayer(PlayerComponent::moveDown));
+    onKey(KeyCode.LEFT, () -> withPlayer(PlayerComponent::moveLeft));
+    onKey(KeyCode.RIGHT, () -> withPlayer(PlayerComponent::moveRight));
 
-    onKeyDown(KeyCode.SPACE, () -> player.getComponent(PlayerComponent.class).shoot());
+    onKeyDown(KeyCode.SPACE, () -> withPlayer(PlayerComponent::shoot));
 
     // Shield activation (your feature)
-    onKeyDown(KeyCode.E, () -> player.getComponent(PlayerComponent.class).activateShield());
+    onKeyDown(KeyCode.E, () -> withPlayer(PlayerComponent::activateShield));
 
-    onKey(KeyCode.W, () -> player.getComponent(PlayerComponent.class).moveUp());
-    onKey(KeyCode.S, () -> player.getComponent(PlayerComponent.class).moveDown());
-    onKey(KeyCode.A, () -> player.getComponent(PlayerComponent.class).moveLeft());
-    onKey(KeyCode.D, () -> player.getComponent(PlayerComponent.class).moveRight());
+    onKey(KeyCode.W, () -> withPlayer(PlayerComponent::moveUp));
+    onKey(KeyCode.S, () -> withPlayer(PlayerComponent::moveDown));
+    onKey(KeyCode.A, () -> withPlayer(PlayerComponent::moveLeft));
+    onKey(KeyCode.D, () -> withPlayer(PlayerComponent::moveRight));
 
-    onKeyDown(KeyCode.B, () -> bomb.getComponent(BombComponent.class).useBomb(player));
+    onKeyDown(
+        KeyCode.B,
+        () ->
+            withPlayer(
+                p -> {
+                  if (bomb != null && bomb.hasComponent(BombComponent.class)) {
+                    bomb.getComponent(BombComponent.class).useBomb(player);
+                  }
+                }));
   }
 
   public void initGame() {
@@ -127,6 +133,12 @@ public class GameInitializer {
         "weaponHeat",
         new SpawnData(getAppCenter().getX() + 170, getAppCenter().getY() + 340)
             .put("playerComponent", player.getComponent(PlayerComponent.class)));
+  }
+
+  private void withPlayer(java.util.function.Consumer<PlayerComponent> action) {
+    if (player != null && player.isActive() && player.hasComponent(PlayerComponent.class)) {
+      action.accept(player.getComponent(PlayerComponent.class));
+    }
   }
 
   public EnemySpawner getEnemySpawner() {
