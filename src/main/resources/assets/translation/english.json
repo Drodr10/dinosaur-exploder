@@ -18,6 +18,8 @@
     "move_right": "Move spaceship right",
     "move_left": "Move spaceship left",
     "pause_game": "ECS: Pause the game",
+    "time_survived": "Time Survived",
+    "coins_collected": "Coins Collected",
     "new_game": "Game Over. Do you want to play again?",
     "shoot": "SPACE: Shoot",
     "bomb": "Bomb",

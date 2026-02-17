@@ -16,6 +16,7 @@ public class LevelManager {
   private int defeatedEnemies = 0;
   private double enemySpawnRate = 0.75;
   private double enemySpeed = 1.5;
+  private long sessionStartTime = System.currentTimeMillis();
 
   public int getCurrentLevel() {
     return currentLevel;
@@ -31,6 +32,14 @@ public class LevelManager {
 
   public float getLevelProgress() {
     return (float) defeatedEnemies / enemiesToDefeat;
+  }
+
+  public String getSessionTimeFormatted() {
+    long elapsedTime = System.currentTimeMillis() - sessionStartTime;
+    long totalSeconds = elapsedTime / 1000;
+    long minutes = totalSeconds / 60;
+    long seconds = totalSeconds % 60;
+    return String.format("%02d:%02d", minutes, seconds);
   }
 
   public void incrementDefeatedEnemies() {

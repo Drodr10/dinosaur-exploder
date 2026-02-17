@@ -6,6 +6,7 @@
 package com.dinosaur.dinosaurexploder.controller.core;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 import static com.almasb.fxgl.dsl.FXGL.runOnce;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
 import static javafx.util.Duration.seconds;
@@ -19,7 +20,7 @@ import com.dinosaur.dinosaurexploder.utils.LanguageManager;
 import com.dinosaur.dinosaurexploder.utils.LevelManager;
 import com.dinosaur.dinosaurexploder.utils.TextUtils;
 import com.dinosaur.dinosaurexploder.view.DinosaurGUI;
-import com.dinosaur.dinosaurexploder.view.GameOverDialog;
+import com.dinosaur.dinosaurexploder.view.StatisticsMenu;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -35,6 +36,8 @@ public class GameActions {
   private final Entity life;
   private final Entity levelProgressBar;
   private final Entity bomb;
+  private final Entity score;
+  private final CollectedCoinsComponent collectedCoinsComponent;
 
   public GameActions(GameInitializer gameInitializer) {
     this.enemySpawner = gameInitializer.getEnemySpawner();
@@ -46,6 +49,8 @@ public class GameActions {
     this.life = gameInitializer.getLife();
     this.levelProgressBar = gameInitializer.getLevelProgressBar();
     this.bomb = gameInitializer.getBomb();
+    this.score = gameInitializer.getScore();
+    this.collectedCoinsComponent = gameInitializer.getCollectedCoinsComponent();
   }
 
   public void updateLevelDisplay() {
@@ -169,20 +174,29 @@ public class GameActions {
 
           enemySpawner.resumeEnemySpawning();
 
-          player.getComponent(PlayerComponent.class).setInvincible(true);
-          runOnce(
-              () -> {
-                if (player != null && player.isActive()) {
-                  player.getComponent(PlayerComponent.class).setInvincible(false);
-                }
-              },
-              seconds(3));
+          // Check if player has died during the level transition before making them invincible
+          if (player != null && player.isActive()) {
+            player.getComponent(PlayerComponent.class).setInvincible(true);
+            runOnce(
+                () -> {
+                  if (player != null && player.isActive()) {
+                    player.getComponent(PlayerComponent.class).setInvincible(false);
+                  }
+                },
+                seconds(3));
+          }
         },
         seconds(2));
   }
 
   /** Summary : To detect whether the player lives are empty or not */
   public void gameOver() {
-    new GameOverDialog(languageManager).createDialog();
+
+    int finalScore = score.getComponent(ScoreComponent.class).getScore();
+    int finalCoins = collectedCoinsComponent.getCoin();
+
+    String timeSurvived = levelManager.getSessionTimeFormatted();
+
+    getSceneService().pushSubScene(new StatisticsMenu(finalScore, timeSurvived, finalCoins));
   }
 }

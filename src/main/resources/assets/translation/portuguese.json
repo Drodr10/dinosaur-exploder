@@ -17,6 +17,8 @@
   "move_right": "Mover para a direita",
   "move_left": "Mover para a esquerda",
   "pause_game": "ESC: Pausar",
+  "time_survived": "Tempo de sobrevivência",
+  "coins_collected": "Moedas coletadas",
   "new_game": "Fim de jogo. Deseja jogar novamente?",
   "shoot": "ESPAÇO: Atirar",
   "bomb": "Bomba",

@@ -17,6 +17,8 @@
   "move_right": "Δεξιά",
   "move_left": "Αριστερά",
   "pause_game": "ESC: Παύση",
+  "time_survived": "Χρόνος ζωής",
+  "coins_collected": "Συλλεγμένα νομίσματα",
   "new_game": "Νέο παιχνίδι;",
   "shoot": "Space: Πυρ!",
   "bomb": "Βόμβα",
