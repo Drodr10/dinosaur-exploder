@@ -23,8 +23,10 @@ public class StatisticsMenu extends SubScene {
     // Dim game background
     var bg = new Rectangle(getAppWidth(), getAppHeight(), Color.rgb(0, 0, 0, 0.85));
 
-    Text title =
-        getUIFactoryService().newText(lm.getTranslation("game_over").toUpperCase(), Color.LIME, 48);
+    String titleStr = lm.getTranslation("game_over").toUpperCase();
+    double titleSize = titleStr.length() > 10 ? (550.0 / titleStr.length()) * 0.9 : 48;
+
+    Text title = getUIFactoryService().newText(titleStr, Color.LIME, titleSize);
 
     Text scoreText =
         getUIFactoryService()
