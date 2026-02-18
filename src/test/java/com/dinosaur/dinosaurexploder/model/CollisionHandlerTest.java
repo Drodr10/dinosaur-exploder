@@ -148,5 +148,9 @@ class CollisionHandlerTest {
     collisionHandler.onPlayerGetHeart(lifeComponent);
 
     assertEquals(PLAYER_MAX_LIVES, lifeComponent.getLife());
+    assertEquals(
+        1,
+        levelManager.getHeartsCollected(),
+        "LevelManager should track the session heart collection");
   }
 }
