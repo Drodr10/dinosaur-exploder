@@ -18,6 +18,8 @@
     "move_left": "Déplacer le vaisseau vers la gauche",
     "pause_game": "ECS: Mettre le jeu en pause",
     "time_survived": "Temps de survie",
+    "level_reached": "Niveau atteint",
+    "hearts_collected": "Cœurs collectés",
     "coins_collected": "Pièces collectées",
     "new_game": "Jeu terminé. Voulez-vous rejouer?",
     "shoot": "ESPACE: Tirer",

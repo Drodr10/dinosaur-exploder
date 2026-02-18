@@ -18,6 +18,8 @@
   "move_left": "宇宙船を左に移動します",
   "pause_game": "ECS: ゲームを一時停止します",
   "time_survived": "生存時間",
+  "level_reached": "到達したレベル",
+  "hearts_collected": "収集されたハート数",
   "coins_collected": "収集されたコイン数",
   "new_game": "ゲームオーバー。もう一度プレイしますか?",
   "shoot": "スペースバー: シュート",

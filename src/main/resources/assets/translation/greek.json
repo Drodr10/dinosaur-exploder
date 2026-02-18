@@ -18,6 +18,8 @@
   "move_left": "Αριστερά",
   "pause_game": "ESC: Παύση",
   "time_survived": "Χρόνος ζωής",
+  "level_reached": "Επίπεδο που φτάσατε",
+  "hearts_collected": "Συλλεγμένες καρδιές",
   "coins_collected": "Συλλεγμένα νομίσματα",
   "new_game": "Νέο παιχνίδι;",
   "shoot": "Space: Πυρ!",

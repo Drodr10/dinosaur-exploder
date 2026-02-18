@@ -18,6 +18,8 @@
   "move_left": "Mover izquierda",
   "pause_game": "ESC: Pausa",
   "time_survived": "Tiempo sobrevivido",
+  "level_reached": "Nivel alcanzado",
+  "hearts_collected": "Corazones recolectados",
   "coins_collected": "Monedas recolectadas",
   "new_game": "Juego Terminado. ¿Jugar de nuevo?",
   "shoot": "ESPACIO: Disparar",

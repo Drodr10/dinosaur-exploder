@@ -194,9 +194,14 @@ public class GameActions {
 
     int finalScore = score.getComponent(ScoreComponent.class).getScore();
     int finalCoins = collectedCoinsComponent.getCoin();
+    int currentLevel = levelManager.getCurrentLevel();
+    int heartsCollected = levelManager.getHeartsCollected();
 
     String timeSurvived = levelManager.getSessionTimeFormatted();
 
-    getSceneService().pushSubScene(new StatisticsMenu(finalScore, timeSurvived, finalCoins));
+    getSceneService()
+        .pushSubScene(
+            new StatisticsMenu(
+                finalScore, timeSurvived, finalCoins, currentLevel, heartsCollected));
   }
 }

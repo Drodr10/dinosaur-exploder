@@ -16,6 +16,7 @@ public class LevelManager {
   private int defeatedEnemies = 0;
   private double enemySpawnRate = 0.75;
   private double enemySpeed = 1.5;
+  private int heartsCollected = 0;
   private long sessionStartTime = System.currentTimeMillis();
 
   public int getCurrentLevel() {
@@ -34,6 +35,10 @@ public class LevelManager {
     return (float) defeatedEnemies / enemiesToDefeat;
   }
 
+  public int getHeartsCollected() {
+    return heartsCollected;
+  }
+
   public String getSessionTimeFormatted() {
     long elapsedTime = System.currentTimeMillis() - sessionStartTime;
     long totalSeconds = elapsedTime / 1000;
@@ -44,6 +49,10 @@ public class LevelManager {
 
   public void incrementDefeatedEnemies() {
     defeatedEnemies++;
+  }
+
+  public void incrementHeartsCollected() {
+    heartsCollected++;
   }
 
   public boolean shouldAdvanceLevel() {

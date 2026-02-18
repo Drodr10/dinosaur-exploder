@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class StatisticsMenu extends SubScene {
-  public StatisticsMenu(int score, String time, int coins) {
+  public StatisticsMenu(int score, String time, int coins, int currentLevel, int heartsCollected) {
     LanguageManager lm = LanguageManager.getInstance();
 
     // Dim game background
@@ -40,6 +40,20 @@ public class StatisticsMenu extends SubScene {
                 Color.WHITE,
                 GameConstants.TEXT_SUB_DETAILS);
 
+    Text levelText =
+        getUIFactoryService()
+            .newText(
+                String.format("%s: %d", lm.getTranslation("level_reached"), currentLevel),
+                Color.WHITE,
+                GameConstants.TEXT_SUB_DETAILS);
+
+    Text heartsText =
+        getUIFactoryService()
+            .newText(
+                String.format("%s: %d", lm.getTranslation("hearts_collected"), heartsCollected),
+                Color.WHITE,
+                GameConstants.TEXT_SUB_DETAILS);
+
     Text coinsText =
         getUIFactoryService()
             .newText(
@@ -59,7 +73,18 @@ public class StatisticsMenu extends SubScene {
     btnNo.setMinWidth(200);
     btnNo.setOnAction(e -> getGameController().gotoMainMenu());
 
-    VBox box = new VBox(25, title, scoreText, timeText, coinsText, promptText, btnYes, btnNo);
+    VBox box =
+        new VBox(
+            25,
+            title,
+            scoreText,
+            timeText,
+            levelText,
+            heartsText,
+            coinsText,
+            promptText,
+            btnYes,
+            btnNo);
     box.setAlignment(Pos.CENTER);
     box.setPrefSize(getAppWidth(), getAppHeight());
 
