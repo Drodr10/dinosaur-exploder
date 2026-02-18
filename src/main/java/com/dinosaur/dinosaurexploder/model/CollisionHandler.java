@@ -64,6 +64,7 @@ public class CollisionHandler {
 
   public void onPlayerGetHeart(LifeComponent lifeComponent) {
     lifeComponent.increaseLife(1);
+    levelManager.incrementHeartsCollected();
   }
 
   private boolean adjustLevel() {

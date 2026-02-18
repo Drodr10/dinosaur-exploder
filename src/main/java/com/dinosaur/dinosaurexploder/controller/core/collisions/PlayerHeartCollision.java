@@ -12,14 +12,17 @@ import com.dinosaur.dinosaurexploder.components.LifeComponent;
 import com.dinosaur.dinosaurexploder.constants.EntityType;
 import com.dinosaur.dinosaurexploder.constants.GameConstants;
 import com.dinosaur.dinosaurexploder.controller.core.GameInitializer;
+import com.dinosaur.dinosaurexploder.model.CollisionHandler;
 import com.dinosaur.dinosaurexploder.utils.AudioManager;
 
 public class PlayerHeartCollision implements CollisionHandlerInterface {
 
   private final Entity life;
+  private final CollisionHandler collisionHandler;
 
   public PlayerHeartCollision(GameInitializer gameInitializer) {
     this.life = gameInitializer.getLife();
+    this.collisionHandler = gameInitializer.getCollisionHandler();
   }
 
   @Override
@@ -31,7 +34,7 @@ public class PlayerHeartCollision implements CollisionHandlerInterface {
           AudioManager.getInstance().playSound(GameConstants.HEART_HIT_SOUND);
           heart.removeFromWorld();
           System.out.println("You touched a heart!");
-          life.getComponent(LifeComponent.class).increaseLife(1);
+          collisionHandler.onPlayerGetHeart(life.getComponent(LifeComponent.class));
         });
   }
 }
